@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/my_state_app.dart';
@@ -8,16 +7,24 @@ import 'package:toast/toast.dart';
 class FavoriteMealStarWidget extends StatelessWidget{
 
   final Function addToFavorites;
+  final Function removeFromFavorites;
   final Meal meal;
 
-  FavoriteMealStarWidget({this.addToFavorites, this.meal});
+  FavoriteMealStarWidget({
+    @required this.meal,
+    @required this.addToFavorites,
+    @required this.removeFromFavorites,
+  });
 
 
   @override
   Widget build(BuildContext context) {
     var favorites = AppState.of(context).dataIndex.favorites;
 
-    Function action = addToFavorites;
+    Function action = (){
+      addToFavorites(meal, context);
+    };
+
     Icon favoriteIcon = Icon(Icons.star_border);
     String toastMessage = 'Succefully added to favorites!';
 
@@ -27,7 +34,9 @@ class FavoriteMealStarWidget extends StatelessWidget{
       }, orElse:(){ return null; });
 
       if(firstWhere != null){
-        action = () { AppState.of(context).actionsIndex.mealActions.removeFromFavorites(meal); };
+        action = () {
+          removeFromFavorites(meal, context);
+        };
         favoriteIcon = Icon(Icons.star);
         toastMessage = 'Succefully removed from favorites!';
       }

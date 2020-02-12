@@ -31,7 +31,7 @@ class _MyApp extends State<MyApp>{
   List<Meal> _meals;
   AppState _appState;
 
-  void addMealToFavorites(Meal mealToAddAsFavorite){
+  void addMealToFavorites(Meal mealToAddAsFavorite, BuildContext context){
     var favorites = AppState.of(context).dataIndex.favorites;
     favorites.add(mealToAddAsFavorite);
   }
@@ -81,8 +81,6 @@ class _MyApp extends State<MyApp>{
     var actionsIndex = ActionsIndex.defaultActions(
       mealActions: MealActions(),
     );
-
-    actionsIndex.mealActions.addToFavorites = addMealToFavorites;
 
     var dataIndex = DataIndex.defaultData(
       categories: _categories,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/my_state_app.dart';
+import 'package:meals_app/widgets/favorite_meal_start_widget.dart';
 import 'package:toast/toast.dart';
 
 class MealDetailsChoice {
@@ -12,8 +13,26 @@ class MealDetailsChoice {
   final Widget card;
 }
 
-class MealDetailsPage extends StatelessWidget {
+class MealDetailsPage extends StatefulWidget {
   static const routeName = "/mealDetails";
+
+  @override
+  _MealDetailsPageState createState() => _MealDetailsPageState();
+}
+
+class _MealDetailsPageState extends State<MealDetailsPage> {
+
+  void _addToFavorites(Meal meal, BuildContext context){
+    setState(() {
+      AppState.of(context).actionsIndex.mealActions.addToFavorites(meal, context);
+    });
+  }
+
+  void _removeFromFavorites(Meal meal, BuildContext context) {
+    setState(() {
+      AppState.of(context).actionsIndex.mealActions.removeFromFavorites(meal, context);
+    });
+  }
 
   buildCenteredTitle(String title) {
     return Center(
@@ -73,17 +92,11 @@ class MealDetailsPage extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.only(right: 10, bottom: 10),
-                        child: FloatingActionButton(
-                          heroTag: 'favoriteBtn',
-                          child: Icon(Icons.star),
-                          onPressed: (){
-                            AppState.of(context).actionsIndex.mealActions.addToFavorites(meal);
-                            Toast.show("Succefully added to favorites!", context,
-                              duration: Toast.LENGTH_LONG,
-                              gravity:  Toast.TOP,
-                            );
-                          },
-                        )
+                        child: FavoriteMealStarWidget(
+                            meal: meal,
+                            addToFavorites: _addToFavorites,
+                            removeFromFavorites: _removeFromFavorites,
+                        ),
                       ),
                     ],
                   ),
