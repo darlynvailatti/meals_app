@@ -1,4 +1,4 @@
-import 'package:meals_app/category_item_widget.dart';
+import 'package:meals_app/widgets/category_item_widget.dart';
 import 'package:meals_app/dummy_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +7,15 @@ import 'package:meals_app/my_state_app.dart';
 
 class CategoriesPage extends StatelessWidget {
 
+  static final String routeName = "/categories";
+
 
   @override
   Widget build(BuildContext context) {
 
-    var _categories = AppState.of(context).categories;
+    var _categories = AppState.of(context).dataIndex.categories;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Categories'),
-      ),
-      body: GridView(
+    return GridView(
         padding: EdgeInsets.all(15),
         children: _categories
             .map(
@@ -30,7 +28,6 @@ class CategoriesPage extends StatelessWidget {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-      ),
     );
   }
 }

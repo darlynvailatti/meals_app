@@ -13,7 +13,7 @@ class CategoryItemWidget extends StatelessWidget{
   CategoryItemWidget(this.category);
 
   void onSelectCategory(BuildContext context){
-    var _allMeals = AppState.of(context).meals;
+    var _allMeals = AppState.of(context).dataIndex.meals;
     var _mealsOfCategory = _allMeals.where((m) => m
         .categories.contains(category),
     ).toList();

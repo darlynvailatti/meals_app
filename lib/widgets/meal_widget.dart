@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/affordability.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/my_state_app.dart';
+import 'package:meals_app/pages/meal_details_page.dart';
+import 'package:meals_app/widgets/favorite_meal_start_widget.dart';
+import 'package:toast/toast.dart';
 
 class MealWidget extends StatelessWidget {
 
@@ -11,15 +15,15 @@ class MealWidget extends StatelessWidget {
 
   MealWidget(this._meal);
 
-  void selectMeal() {
-
+  void selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(MealDetailsPage.routeName, arguments: _meal);
   }
 
   @override
   Widget build(BuildContext context) {
 
     return InkWell(
-      onTap: selectMeal,
+      onTap: () => { selectMeal(context) },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -81,7 +85,12 @@ class MealWidget extends StatelessWidget {
                           AffordabilityValues[_meal.affordability]
                       )
                     ],
-                  )
+                  ),
+                  Row(
+                    children: <Widget>[
+                      FavoriteMealStarWidget(_meal),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -90,5 +99,6 @@ class MealWidget extends StatelessWidget {
       ),
     );
   }
+
 
 }

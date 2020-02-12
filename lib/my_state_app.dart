@@ -1,20 +1,25 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:meals_app/models/category.dart';
-import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/actions/actions_index.dart';
+import 'package:meals_app/data/data_index.dart';
+import 'package:meals_app/pages/page_index.dart';
 
 class AppState extends InheritedWidget {
 
   final Widget child;
-  final List<Category> categories;
-  final List<Meal> meals;
   final Key key;
 
-  AppState({@required this.categories,
-    @required this.meals,
+  final DataIndex dataIndex;
+  final PagesIndex pagesIndex;
+  final ActionsIndex actionsIndex;
+
+  AppState({
     @required this.child,
-    this.key})
+    @required this.actionsIndex,
+    @required this.pagesIndex,
+    @required this.dataIndex,
+    this.key, })
       : super(key: key, child: child);
 
   @override
@@ -23,4 +28,5 @@ class AppState extends InheritedWidget {
   }
   static AppState of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AppState>();
+
 }
